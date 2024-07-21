@@ -19,6 +19,15 @@ def checkChoice(choiceList, choice, correctBridgeChoice):
         print(choice + " wrong")
         messagebox.showinfo(title="Choice", message="Wrong Choice.")
 
+def restartGame(root):
+    root.destroy()
+    main()
+    
+def helpGame(root):
+    print("Blah Blah Blah")
+    messagebox.showinfo(title="Instructions",
+                        message="You have three bridges. Two will break and one is sturdy enough to cross. Choose the correct bridge.")
+
 def main():
 
     correctBridgeChoice = random.randint(0,2)
@@ -31,6 +40,19 @@ def main():
     root.geometry("700x450")
     root.resizable(False, False)
 
+    gameMenu = Menu(root)
+
+    game = Menu(gameMenu, tearoff=0)
+    gameMenu.add_cascade(label="Game", menu = game)
+    game.add_command(label="Restart Game", command = lambda: restartGame(root))
+    game.add_separator()
+    game.add_command(label = "Exit", command = root.destroy)
+
+    help = Menu(gameMenu, tearoff = 0)
+    gameMenu.add_cascade(label="Help", menu = help)
+    help.add_command(label="How To Play", command = lambda: helpGame(root))
+
+    
     titleLabel = Label(root,
                        text="Choose a Bridge!",
                        font=("Courier New", 50))
@@ -60,6 +82,8 @@ def main():
     
 
     thirdButton.place(x=225, y = 300)
+
+    root.config(menu = gameMenu)
     root.mainloop()
 
 main()
