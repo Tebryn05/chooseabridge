@@ -11,13 +11,19 @@ from tkinter import messagebox
 # 6. How do I use random to assign the correct bridge?
 
 
-def checkChoice(choiceList, choice, correctBridgeChoice):
+def checkChoice(choiceList, choice, correctBridgeChoice, root):
     if choiceList.index(choice) == correctBridgeChoice:
         print(choice + " correct")
         messagebox.showinfo(title="Choice", message="Correct Choice!")
     else:
         print(choice + " wrong")
         messagebox.showinfo(title="Choice", message="Wrong Choice.")
+    playAgainChoice = messagebox.askyesno(title="Finished", message="Play Again?")
+    if playAgainChoice == True:
+        root.destroy()
+        main()
+    if playAgainChoice == False:
+        exit()
 
 def restartGame(root):
     root.destroy()
@@ -62,7 +68,7 @@ def main():
                          text="First",
                          width=12,
                          font=("Courier New", 23),
-                         command=lambda: checkChoice(bridgeChoices,bridgeChoices[0], correctBridgeChoice))
+                         command=lambda: checkChoice(bridgeChoices,bridgeChoices[0], correctBridgeChoice, root))
 
     firstButton.place(x=225,y=100)
 
@@ -70,7 +76,7 @@ def main():
                           text="Second",
                           width = 12,
                           font=("Courier New", 23),
-                          command=lambda: checkChoice(bridgeChoices,bridgeChoices[1], correctBridgeChoice))
+                          command=lambda: checkChoice(bridgeChoices,bridgeChoices[1], correctBridgeChoice, root))
 
     secondButton.place(x=225, y=200)
 
@@ -78,7 +84,7 @@ def main():
                          text="Third",
                          width = 12,
                          font=("Courier New", 23),
-                         command=lambda: checkChoice(bridgeChoices,bridgeChoices[2], correctBridgeChoice))
+                         command=lambda: checkChoice(bridgeChoices,bridgeChoices[2], correctBridgeChoice, root))
     
 
     thirdButton.place(x=225, y = 300)
